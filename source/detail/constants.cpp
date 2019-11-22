@@ -117,7 +117,7 @@ const path constants::part_theme()
 
 const path constants::part_shared_strings()
 {
-    return package_xl().append("sharedStrings.xml");
+    return package_xl().append("sharedstd::strings.xml");
 }
 
 const std::unordered_map<std::string, std::string> &constants::namespaces()

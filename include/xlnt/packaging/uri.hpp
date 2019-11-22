@@ -126,12 +126,12 @@ public:
     const class path& path() const;
 
     /// <summary>
-    /// Returns true if this URI has a non-null query string section.
+    /// Returns true if this URI has a non-null query std::string section.
     /// </summary>
     bool has_query() const;
 
     /// <summary>
-    /// Returns the query string of this URI.
+    /// Returns the query std::string of this URI.
     /// E.g. the query of http://example.com/document?v=1&x=3#abc is "v=1&x=3"
     /// </summary>
     std::string query() const;
@@ -148,7 +148,7 @@ public:
     std::string fragment() const;
 
     /// <summary>
-    /// Returns a string representation of this URI.
+    /// Returns a std::string representation of this URI.
     /// </summary>
     std::string to_string() const;
 

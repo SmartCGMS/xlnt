@@ -428,7 +428,7 @@ protected:
 
     virtual int underflow()
     {
-        throw xlnt::exception("Attempt to read write only ostream");
+        throw xlnt::exception("Attempt to read write only std::ostream");
     }
 
     virtual int overflow(int c = EOF);

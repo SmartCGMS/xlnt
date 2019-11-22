@@ -43,7 +43,7 @@ namespace xml
     bool
     empty () const {return name_.empty () && ns_.empty ();}
 
-    // String representation in the [<namespace>#]<name> form.
+    // std::string representation in the [<namespace>#]<name> form.
     //
     std::string
     string () const;
@@ -75,7 +75,7 @@ namespace xml
     std::string prefix_;
   };
 
-  // Print the string representation ([<namespace>#]<name>).
+  // Print the std::string representation ([<namespace>#]<name>).
   //
   LIBSTUDXML_EXPORT std::ostream&
   operator<< (std::ostream&, const qname&);

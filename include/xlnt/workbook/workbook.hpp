@@ -751,34 +751,34 @@ public:
     /// </summary>
     const class manifest &manifest() const;
 
-    // shared strings
+    // shared std::strings
 
     /// <summary>
-    /// Append a shared string to the shared string collection in this workbook.
+    /// Append a shared std::string to the shared std::string collection in this workbook.
     /// This should not generally be called unless you know what you're doing.
-    /// If allow_duplicates is false and the string is already in the collection,
-    /// it will not be added. Returns the index of the added string.
+    /// If allow_duplicates is false and the std::string is already in the collection,
+    /// it will not be added. Returns the index of the added std::string.
     /// </summary>
     std::size_t add_shared_string(const rich_text &shared, bool allow_duplicates = false);
 
     /// <summary>
-    /// Returns a reference to the shared string ordered by id
+    /// Returns a reference to the shared std::string ordered by id
     /// </summary>
     const std::map<std::size_t, rich_text> &shared_strings_by_id() const;
 
     /// <summary>
-    /// Returns a reference to the shared string related to the specified index
+    /// Returns a reference to the shared std::string related to the specified index
     /// </summary>
     const rich_text &shared_strings(std::size_t index) const;
 
     /// <summary>
-    /// Returns a reference to the shared strings being used by cells
+    /// Returns a reference to the shared std::strings being used by cells
     /// in this workbook.
     /// </summary>
     std::unordered_map<rich_text, std::size_t, rich_text_hash> &shared_strings();
 
     /// <summary>
-    /// Returns a reference to the shared strings being used by cells
+    /// Returns a reference to the shared std::strings being used by cells
     /// in this workbook.
     /// </summary>
     const std::unordered_map<rich_text, std::size_t, rich_text_hash> &shared_strings() const;

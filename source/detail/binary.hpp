@@ -33,7 +33,7 @@
 namespace xlnt {
 namespace detail {
 
-using byte = std::uint8_t;
+	using xbyte = std::uint8_t;
 
 template<typename T>
 class binary_reader
@@ -187,7 +187,7 @@ public:
         std::memcpy(data_->data(), ints.data(), bytes());
     }
 
-    // Make the bytes of the data pointed to by this writer equivalent to those in the given string
+    // Make the bytes of the data pointed to by this writer equivalent to those in the given std::string
     // sizeof(U) should be a multiple of sizeof(T)
     template<typename U>
     void assign(const std::basic_string<U> &string)
@@ -237,17 +237,17 @@ public:
         return count() * sizeof(T);
     }
 
-    void resize(std::size_t new_size, byte fill = 0)
+    void resize(std::size_t new_size, xbyte fill = 0)
     {
         data_->resize(new_size, fill);
     }
 
-    void extend(std::size_t amount, byte fill = 0)
+    void extend(std::size_t amount, xbyte fill = 0)
     {
         data_->resize(count() + amount, fill);
     }
 
-    std::vector<byte>::iterator iterator()
+    std::vector<xbyte>::iterator iterator()
     {
         return data_->begin() + static_cast<std::ptrdiff_t>(offset());
     }
@@ -285,10 +285,10 @@ private:
 };
 
 template<typename T>
-std::vector<byte> string_to_bytes(const std::basic_string<T> &string)
+std::vector<xbyte> string_to_bytes(const std::basic_string<T> &string)
 {
-    std::vector<byte> bytes;
-    binary_writer<byte> writer(bytes);
+    std::vector<xbyte> bytes;
+    binary_writer<xbyte> writer(bytes);
     writer.assign(string);
     
     return bytes;

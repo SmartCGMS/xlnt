@@ -40,24 +40,24 @@
    the bottom 5 and 6 bits of the bytes.  We need 8 bits to index into
    pages, 3 bits to add to that index and 5 bits to generate the mask.
 */
-#define UTF8_GET_NAMING2(pages, byte) \
-    (namingBitmap[((pages)[(((byte)[0]) >> 2) & 7] << 3) \
-                      + ((((byte)[0]) & 3) << 1) \
-                      + ((((byte)[1]) >> 5) & 1)] \
-         & (1 << (((byte)[1]) & 0x1F)))
+#define UTF8_GET_NAMING2(pages, ibyte) \
+    (namingBitmap[((pages)[(((ibyte)[0]) >> 2) & 7] << 3) \
+                      + ((((ibyte)[0]) & 3) << 1) \
+                      + ((((ibyte)[1]) >> 5) & 1)] \
+         & (1 << (((ibyte)[1]) & 0x1F)))
 
 /* A 3 byte UTF-8 representation splits the characters 16 bits between
    the bottom 4, 6 and 6 bits of the bytes.  We need 8 bits to index
    into pages, 3 bits to add to that index and 5 bits to generate the
    mask.
 */
-#define UTF8_GET_NAMING3(pages, byte) \
-  (namingBitmap[((pages)[((((byte)[0]) & 0xF) << 4) \
-                             + ((((byte)[1]) >> 2) & 0xF)] \
+#define UTF8_GET_NAMING3(pages, ibyte) \
+  (namingBitmap[((pages)[((((ibyte)[0]) & 0xF) << 4) \
+                             + ((((ibyte)[1]) >> 2) & 0xF)] \
                        << 3) \
-                      + ((((byte)[1]) & 3) << 1) \
-                      + ((((byte)[2]) >> 5) & 1)] \
-         & (1 << (((byte)[2]) & 0x1F)))
+                      + ((((ibyte)[1]) & 3) << 1) \
+                      + ((((ibyte)[2]) >> 5) & 1)] \
+         & (1 << (((ibyte)[2]) & 0x1F)))
 
 #define UTF8_GET_NAMING(pages, p, n) \
   ((n) == 2 \

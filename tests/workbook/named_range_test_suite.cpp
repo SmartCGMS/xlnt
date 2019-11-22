@@ -32,9 +32,9 @@ public:
     void test_split()
     {
     /*
-        using string_pair = std::pair<std::string, std::string>;
-        using string_pair_vector = std::vector<string_pair>;
-        using expected_pair = std::pair<std::string, string_pair_vector>;
+        using std::string_pair = std::pair<std::string, std::string>;
+        using std::string_pair_vector = std::vector<std::string_pair>;
+        using expected_pair = std::pair<std::string, std::string_pair_vector>;
         
         std::vector<expected_pair> expected_pairs =
         {

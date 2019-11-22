@@ -112,7 +112,7 @@ public:
     // Content Types
 
     /// <summary>
-    /// Given the path to a part, returns the content type of the part as a string.
+    /// Given the path to a part, returns the content type of the part as a std::string.
     /// </summary>
     std::string content_type(const path &part) const;
 

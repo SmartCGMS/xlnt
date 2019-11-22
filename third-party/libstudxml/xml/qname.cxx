@@ -6,12 +6,10 @@
 
 #include <xml/qname>
 
-using namespace std;
-
 namespace xml
 {
-  string qname::
-  string () const
+  std::string qname::
+  string() const
   {
     std::string r;
     if (!ns_.empty ())
@@ -24,8 +22,8 @@ namespace xml
     return r;
   }
 
-  ostream&
-  operator<< (ostream& os, const qname& qn)
+  std::ostream&
+  operator<< (std::ostream& os, const qname& qn)
   {
     return os << qn.string ();
   }

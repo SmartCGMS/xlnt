@@ -11,8 +11,6 @@
 
 #include <xml/parser>
 
-using namespace std;
-
 namespace xml
 {
   // parsing
@@ -20,7 +18,7 @@ namespace xml
   void parsing::
   init ()
   {
-    ostringstream os;
+    std::ostringstream os;
     if (!name_.empty ())
       os << name_ << ':';
     os << line_ << ':' << column_ << ": error: " << description_;
@@ -41,8 +39,8 @@ namespace xml
     "end of file"
   };
 
-  ostream&
-  operator<< (ostream& os, parser::event_type e)
+  std::ostream&
+  operator<< (std::ostream& os, parser::event_type e)
   {
     return os << parser_event_str[e];
   }
@@ -84,7 +82,7 @@ namespace xml
     p_ = XML_ParserCreateNS (0, XML_Char (' '));
 
     if (p_ == 0)
-      throw bad_alloc ();
+      throw std::bad_alloc ();
 
     // Get prefixes in addition to namespaces and local names.
     //
@@ -142,8 +140,8 @@ namespace xml
   {
     ~stream_exception_controller ()
     {
-      istream::iostate s = is_.rdstate ();
-      s &= ~istream::failbit;
+      std::istream::iostate s = is_.rdstate();
+      s &= ~std::istream::failbit;
 
       // If our error state (sans failbit) intersects with the
       // exception state then that means we have an active
@@ -161,10 +159,10 @@ namespace xml
       }
     }
 
-    stream_exception_controller (istream& is)
+    stream_exception_controller (std::istream& is)
       : is_ (is), old_state_ (is_.exceptions ())
     {
-      is_.exceptions (old_state_ & ~istream::failbit);
+      is_.exceptions (old_state_ & ~std::istream::failbit);
     }
 
   private:
@@ -174,8 +172,8 @@ namespace xml
     operator= (const stream_exception_controller&);
 
   private:
-    istream& is_;
-    istream::iostate old_state_;
+    std::istream& is_;
+    std::istream::iostate old_state_;
   };
 
   parser::event_type parser::
@@ -213,7 +211,7 @@ namespace xml
     }
   }
 
-  const string& parser::
+  const std::string& parser::
   attribute (const qname_type& qn) const
   {
     if (const element_entry* e = get_element ())
@@ -234,8 +232,8 @@ namespace xml
     throw parsing (*this, "attribute '" + qn.string () + "' expected");
   }
 
-  string parser::
-  attribute (const qname_type& qn, const string& dv) const
+  std::string parser::
+  attribute (const qname_type& qn, const std::string& dv) const
   {
     if (const element_entry* e = get_element ())
     {
@@ -280,23 +278,23 @@ namespace xml
   next_expect (event_type e)
   {
     if (next () != e)
-      throw parsing (*this, string (parser_event_str[e]) + " expected");
+      throw parsing (*this, std::string (parser_event_str[e]) + " expected");
   }
 
   void parser::
-  next_expect (event_type e, const string& ns, const string& n)
+  next_expect (event_type e, const std::string& ns, const std::string& n)
   {
     if (next () != e || namespace_ () != ns || name () != n)
       throw parsing (*this,
-                     string (parser_event_str[e]) + " '" +
+                     std::string (parser_event_str[e]) + " '" +
                      qname_type (ns, n).string () + "' expected");
   }
 
-  string parser::
+  std::string parser::
   element ()
   {
     content (content_type::simple);
-    string r;
+    std::string r;
 
     // The content of the element can be empty in which case there
     // will be no characters event.
@@ -316,8 +314,8 @@ namespace xml
     return r;
   }
 
-  string parser::
-  element (const qname_type& qn, const string& dv)
+  std::string parser::
+  element (const qname_type& qn, const std::string& dv)
   {
     if (peek () == start_element && qname () == qn)
     {
@@ -637,15 +635,15 @@ namespace xml
 
         char* b (static_cast<char*> (XML_GetBuffer (p_, cap)));
         if (b == 0)
-          throw bad_alloc ();
+          throw std::bad_alloc ();
 
         // Temporarily unset the exception failbit. Also clear the fail bit
         // when we reset the old state if it was caused by eof.
         //
-        istream& is (*data_.is);
+        std::istream& is (*data_.is);
         {
           stream_exception_controller sec (is);
-          is.read (b, static_cast<streamsize> (cap));
+          is.read (b, static_cast<std::streamsize> (cap));
         }
 
         // If the caller hasn't configured the stream to use exceptions,
@@ -672,9 +670,9 @@ namespace xml
   static void
   split_name (const XML_Char* s, qname& qn)
   {
-    string& ns (qn.namespace_ ());
-    string& name (qn.name ());
-    string& prefix (qn.prefix ());
+    std::string& ns (qn.namespace_ ());
+    std::string& name (qn.name ());
+    std::string& prefix (qn.prefix ());
 
     const char* p (strchr (s, ' '));
 

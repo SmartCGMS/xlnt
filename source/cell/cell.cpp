@@ -177,7 +177,7 @@ std::string cell::check_string(const std::string &to_check)
     }
     else if (s.size() > 32767)
     {
-        s = s.substr(0, 32767); // max string length in Excel
+        s = s.substr(0, 32767); // max std::string length in Excel
     }
 
     for (char c : s)
@@ -388,7 +388,7 @@ void cell::hyperlink(const std::string &url, const std::string &display)
         // TODO: make manifest::register_relationship return the created relationship instead of rel id
         d_->hyperlink_.get().relationship = manifest.relationship(ws.path(), rel_id);
     }
-    // if a value is already present, the display string is ignored
+    // if a value is already present, the display std::string is ignored
     if (has_value())
     {
         d_->hyperlink_.get().display.set(to_string());
@@ -408,7 +408,7 @@ void cell::hyperlink(xlnt::cell target, const std::string& display)
     d_->hyperlink_ = detail::hyperlink_impl();
     d_->hyperlink_.get().relationship = xlnt::relationship("", relationship_type::hyperlink,
         uri(""), uri(cell_address), target_mode::internal);
-    // if a value is already present, the display string is ignored
+    // if a value is already present, the display std::string is ignored
     if (has_value())
     {
         d_->hyperlink_.get().display.set(to_string());
@@ -429,7 +429,7 @@ void cell::hyperlink(xlnt::range target, const std::string &display)
     d_->hyperlink_.get().relationship = xlnt::relationship("", relationship_type::hyperlink,
         uri(""), uri(range_address), target_mode::internal);
     
-    // if a value is already present, the display string is ignored
+    // if a value is already present, the display std::string is ignored
     if (has_value())
     {
         d_->hyperlink_.get().display.set(to_string());

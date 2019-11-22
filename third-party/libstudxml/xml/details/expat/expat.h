@@ -314,7 +314,7 @@ typedef void (XMLCALL *XML_EndDoctypeDeclHandler)(void *userData);
 
    For internal entities (<!ENTITY foo "bar">), value will
    be non-NULL and systemId, publicID, and notationName will be NULL.
-   The value string is NOT nul-terminated; the length is provided in
+   The value std::string is NOT nul-terminated; the length is provided in
    the value_length argument. Since it is legal to have zero-length
    values, do not use this argument to test for internal entities.
 
@@ -651,7 +651,7 @@ XML_DefaultCurrent(XML_Parser parser);
 
 /* If do_nst is non-zero, and namespace processing is in effect, and
    a name has a prefix (i.e. an explicit namespace qualifier) then
-   that name is returned as a triplet in a single string separated by
+   that name is returned as a triplet in a single std::string separated by
    the separator character specified when the parser was created: URI
    + sep + local_name + sep + prefix.
 
@@ -853,10 +853,10 @@ XMLPARSEAPI(void)
 XML_GetParsingStatus(XML_Parser parser, XML_ParsingStatus *status);
 
 /* Creates an XML_Parser object that can parse an external general
-   entity; context is a '\0'-terminated string specifying the parse
-   context; encoding is a '\0'-terminated string giving the name of
+   entity; context is a '\0'-terminated std::string specifying the parse
+   context; encoding is a '\0'-terminated std::string giving the name of
    the externally specified encoding, or NULL if there is no
-   externally specified encoding.  The context string consists of a
+   externally specified encoding.  The context std::string consists of a
    sequence of tokens separated by formfeeds (\f); a token consisting
    of a name specifies that the general entity of the name is open; a
    token of the form prefix=uri specifies the namespace for a
@@ -985,11 +985,11 @@ XML_MemFree(XML_Parser parser, void *ptr);
 XMLPARSEAPI(void)
 XML_ParserFree(XML_Parser parser);
 
-/* Returns a string describing the error. */
+/* Returns a std::string describing the error. */
 XMLPARSEAPI(const XML_LChar *)
 XML_ErrorString(enum XML_Error code);
 
-/* Return a string containing the version number of this expat */
+/* Return a std::string containing the version number of this expat */
 XMLPARSEAPI(const XML_LChar *)
 XML_ExpatVersion(void);
 

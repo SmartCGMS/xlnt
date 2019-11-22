@@ -221,7 +221,7 @@ static void endCollect(collector * c)
 
 static genxStatus collectString(genxWriter w, collector * c, constUtf8 string)
 {
-  size_t sl = strlen((const char *) string);
+  size_t sl = strlen((const char *)string);
 
   if (sl >= c->space)
     if ((w->status = growCollector(w, c, sl)) != GENX_SUCCESS)

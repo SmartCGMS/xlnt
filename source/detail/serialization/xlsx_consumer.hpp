@@ -153,7 +153,7 @@ private:
 	void read_pivot_table();
 
 	/// <summary>
-	/// xl/sharedStrings.xml
+	/// xl/sharedstd::strings.xml
 	/// </summary>
 	void read_shared_string_table();
 
@@ -279,9 +279,9 @@ private:
     /// <summary>
     /// In mixed content XML elements, whitespace before and after is not ignored.
     /// Additionally, if PCDATA spans the boundary of the XML read buffer, it will
-    /// be parsed as two separate strings instead of on longer string. This method
+    /// be parsed as two separate std::strings instead of on longer std::string. This method
     /// will read character data until non-character data is peek()ed from the parser
-    /// and returns the combined strings. This should be used when parsing mixed
+    /// and returns the combined std::strings. This should be used when parsing mixed
     /// content to ignore whitespace and whenever character data is expected between
     /// tags.
     /// </summary>

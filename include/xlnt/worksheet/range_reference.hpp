@@ -113,7 +113,7 @@ public:
     range_reference make_offset(int column_offset, int row_offset) const;
 
     /// <summary>
-    /// Returns a string representation of this range.
+    /// Returns a std::string representation of this range.
     /// </summary>
     std::string to_string() const;
 
@@ -123,13 +123,13 @@ public:
     bool operator==(const range_reference &comparand) const;
 
     /// <summary>
-    /// Returns true if this range is equivalent to the string representation
+    /// Returns true if this range is equivalent to the std::string representation
     /// of the other range.
     /// </summary>
     bool operator==(const std::string &reference_string) const;
 
     /// <summary>
-    /// Returns true if this range is equivalent to the string representation
+    /// Returns true if this range is equivalent to the std::string representation
     /// of the other range.
     /// </summary>
     bool operator==(const char *reference_string) const;
@@ -140,13 +140,13 @@ public:
     bool operator!=(const range_reference &comparand) const;
 
     /// <summary>
-    /// Returns true if this range is not equivalent to the string representation
+    /// Returns true if this range is not equivalent to the std::string representation
     /// of the other range.
     /// </summary>
     bool operator!=(const std::string &reference_string) const;
 
     /// <summary>
-    /// Returns true if this range is not equivalent to the string representation
+    /// Returns true if this range is not equivalent to the std::string representation
     /// of the other range.
     /// </summary>
     bool operator!=(const char *reference_string) const;
@@ -169,22 +169,22 @@ private:
 };
 
 /// <summary>
-/// Returns true if the string representation of the range is equivalent to ref.
+/// Returns true if the std::string representation of the range is equivalent to ref.
 /// </summary>
 XLNT_API bool operator==(const std::string &reference_string, const range_reference &ref);
 
 /// <summary>
-/// Returns true if the string representation of the range is equivalent to ref.
+/// Returns true if the std::string representation of the range is equivalent to ref.
 /// </summary>
 XLNT_API bool operator==(const char *reference_string, const range_reference &ref);
 
 /// <summary>
-/// Returns true if the string representation of the range is not equivalent to ref.
+/// Returns true if the std::string representation of the range is not equivalent to ref.
 /// </summary>
 XLNT_API bool operator!=(const std::string &reference_string, const range_reference &ref);
 
 /// <summary>
-/// Returns true if the string representation of the range is not equivalent to ref.
+/// Returns true if the std::string representation of the range is not equivalent to ref.
 /// </summary>
 XLNT_API bool operator!=(const char *reference_string, const range_reference &ref);
 

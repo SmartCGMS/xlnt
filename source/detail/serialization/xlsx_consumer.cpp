@@ -260,7 +260,7 @@ cell xlsx_consumer::read_cell()
     {
         auto current_element = expect_start_element(xml::content::mixed);
 
-        if (current_element == qn("spreadsheetml", "v")) // s:ST_Xstring
+        if (current_element == qn("spreadsheetml", "v")) // s:ST_Xstd::string
         {
             has_value = true;
             value_string = read_text();
@@ -407,7 +407,7 @@ std::string xlsx_consumer::read_worksheet_begin(const std::string &rel_id)
                 props.published.set(parser().attribute<bool>("published"));
             }
             if (parser().attribute_present("codeName"))
-            { // optional, string
+            { // optional, std::string
                 props.code_name.set(parser().attribute<std::string>("codeName"));
             }
             if (parser().attribute_present("filterMode"))
@@ -741,7 +741,7 @@ void xlsx_consumer::read_worksheet_sheetdata()
             {
                 auto current_element = expect_start_element(xml::content::mixed);
 
-                if (current_element == qn("spreadsheetml", "v")) // s:ST_Xstring
+                if (current_element == qn("spreadsheetml", "v")) // s:ST_Xstd::string
                 {
                     has_value = true;
                     value_string = read_text();
@@ -1648,7 +1648,7 @@ void xlsx_consumer::read_office_document(const std::string &content_type) // CT_
             skip_attribute("backupFile"); // optional, bool=false
             skip_attribute("saveExternalLinkValues"); // optional, bool=true
             skip_attribute("updateLinks"); // optional, ST_UpdateLinks="userSet"
-            skip_attribute("codeName"); // optional, string
+            skip_attribute("codeName"); // optional, std::string
             skip_attribute("hidePivotFieldList"); // optional, bool=false
             skip_attribute("showPivotChartFilter"); // optional, bool=false
             skip_attribute("allowRefreshQuery"); // optional, bool=false

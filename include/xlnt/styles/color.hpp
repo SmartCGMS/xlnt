@@ -95,7 +95,7 @@ class XLNT_API rgb_color
 {
 public:
     /// <summary>
-    /// Constructs an RGB color from a string in the form \#[aa]rrggbb
+    /// Constructs an RGB color from a std::string in the form \#[aa]rrggbb
     /// </summary>
     rgb_color(const std::string &hex_string);
 
@@ -106,7 +106,7 @@ public:
     rgb_color(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint8_t a = 255);
 
     /// <summary>
-    /// Returns a string representation of this color in the form \#aarrggbb
+    /// Returns a std::string representation of this color in the form \#aarrggbb
     /// </summary>
     std::string hex_string() const;
 

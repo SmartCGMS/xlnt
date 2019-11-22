@@ -144,7 +144,7 @@ xlnt::path default_path(xlnt::relationship_type type, std::size_t index = 0)
     case relationship_type::revision_log:
         return path("/xl/revisionLog.xml");
     case relationship_type::shared_string_table:
-        return path("/xl/sharedStrings.xml");
+        return path("/xl/sharedstd::strings.xml");
     case relationship_type::shared_workbook:
         return path("/xl/sharedWorkbook.xml");
     case relationship_type::shared_workbook_revision_headers:
@@ -223,7 +223,7 @@ std::string content_type(xlnt::relationship_type type)
     case relationship_type::revision_log:
         return "application/vnd.openxmlformats-officedocument.spreadsheetml.revisionLog+xml";
     case relationship_type::shared_string_table:
-        return "application/vnd.openxmlformats-officedocument.spreadsheetml.sharedStrings+xml";
+        return "application/vnd.openxmlformats-officedocument.spreadsheetml.sharedstd::strings+xml";
     case relationship_type::shared_workbook:
         throw xlnt::unhandled_switch_case();
     case relationship_type::shared_workbook_revision_headers:

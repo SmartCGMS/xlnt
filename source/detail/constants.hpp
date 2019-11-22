@@ -120,7 +120,7 @@ struct XLNT_API constants
     static const path part_theme();
 
     /// <summary>
-    /// Returns the URI of the shared strings package part.
+    /// Returns the URI of the shared std::strings package part.
     /// </summary>
     static const path part_shared_strings();
 

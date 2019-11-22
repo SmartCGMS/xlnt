@@ -54,7 +54,7 @@ struct XLNT_API time
     explicit time(int hour_ = 0, int minute_ = 0, int second_ = 0, int microsecond_ = 0);
 
     /// <summary>
-    /// Constructs a time object from a string representing the time.
+    /// Constructs a time object from a std::string representing the time.
     /// </summary>
     explicit time(const std::string &time_string);
 

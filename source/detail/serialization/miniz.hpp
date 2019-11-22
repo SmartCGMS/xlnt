@@ -291,7 +291,7 @@ typedef struct mz_stream_s
 
 typedef mz_stream *mz_streamp;
 
-/* Returns the version string of miniz.c. */
+/* Returns the version std::string of miniz.c. */
 const char *mz_version(void);
 
 /* mz_deflateInit() initializes a compressor with default options: */
@@ -376,7 +376,7 @@ int mz_inflateEnd(mz_streamp pStream);
 /* Returns MZ_OK on success, or one of the error codes from mz_inflate() on failure. */
 int mz_uncompress(unsigned char *pDest, mz_ulong *pDest_len, const unsigned char *pSource, mz_ulong source_len);
 
-/* Returns a string description of the specified error code, or NULL if the error code is invalid. */
+/* Returns a std::string description of the specified error code, or NULL if the error code is invalid. */
 const char *mz_error(int err);
 
 /* Redefine zlib-compatible names to miniz equivalents, so miniz.c can be used as a drop-in replacement for the subset of zlib that miniz.c supports. */
@@ -948,7 +948,7 @@ typedef struct
     /* MZ_TRUE if the file is not encrypted, a patch file, and if it uses a compression method we support. */
     mz_bool m_is_supported;
 
-    /* Filename. If string ends in '/' it's a subdirectory entry. */
+    /* Filename. If std::string ends in '/' it's a subdirectory entry. */
     /* Guaranteed to be zero terminated, may be truncated to fit. */
     char m_filename[MZ_ZIP_MAX_ARCHIVE_FILENAME_SIZE];
 

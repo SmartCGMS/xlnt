@@ -152,10 +152,10 @@ public:
         ws.cell("B14").value(std::numeric_limits<double>::max());
 
         ws.cell("A16").value("text (char *)");
-        ws.cell("B16").value("string");
+        ws.cell("B16").value("std::string");
 
         ws.cell("A17").value("text (std::string)");
-        ws.cell("B17").value(std::string("string"));
+        ws.cell("B17").value(std::string("std::string"));
 
         ws.cell("A18").value("date");
         ws.cell("B18").value(xlnt::date(2016, 2, 3));

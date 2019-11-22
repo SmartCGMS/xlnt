@@ -41,17 +41,13 @@
 
 namespace {
 
-using xlnt::detail::byte;
-using xlnt::detail::read;
-using xlnt::detail::encryption_info;
-
 std::vector<std::uint8_t> decrypt_xlsx_standard(
-    encryption_info info,
+    xlnt::detail::encryption_info info,
     std::istream &encrypted_package_stream)
 {
     const auto key = info.calculate_key();
 
-    auto decrypted_size = read<std::uint64_t>(encrypted_package_stream);
+    auto decrypted_size = xlnt::detail::read<std::uint64_t>(encrypted_package_stream);
 
     std::vector<std::uint8_t> encrypted_segment(4096, 0);
     std::vector<std::uint8_t> decrypted_package;
@@ -75,7 +71,7 @@ std::vector<std::uint8_t> decrypt_xlsx_standard(
 }
 
 std::vector<std::uint8_t> decrypt_xlsx_agile(
-    const encryption_info &info,
+    const xlnt::detail::encryption_info &info,
     std::istream &encrypted_package_stream)
 {
     const auto key = info.calculate_key();
@@ -85,14 +81,14 @@ std::vector<std::uint8_t> decrypt_xlsx_agile(
     salt_with_block_key.resize(salt_size + sizeof(std::uint32_t), 0);
 
     auto &segment = *reinterpret_cast<std::uint32_t *>(salt_with_block_key.data() + salt_size);
-    auto total_size = read<std::uint64_t>(encrypted_package_stream);
+    auto total_size = xlnt::detail::read<std::uint64_t>(encrypted_package_stream);
 
     std::vector<std::uint8_t> encrypted_segment(4096, 0);
     std::vector<std::uint8_t> decrypted_package;
 
     while (encrypted_package_stream)
     {
-        auto iv = hash(info.agile.key_encryptor.hash, salt_with_block_key);
+        auto iv = xlnt::detail::hash(info.agile.key_encryptor.hash, salt_with_block_key);
         iv.resize(16);
 
         encrypted_package_stream.read(
@@ -113,15 +109,15 @@ std::vector<std::uint8_t> decrypt_xlsx_agile(
     return decrypted_package;
 }
 
-encryption_info::standard_encryption_info read_standard_encryption_info(std::istream &info_stream)
+xlnt::detail::encryption_info::standard_encryption_info read_standard_encryption_info(std::istream &info_stream)
 {
-    encryption_info::standard_encryption_info result;
+    xlnt::detail::encryption_info::standard_encryption_info result;
 
-    auto header_length = read<std::uint32_t>(info_stream);
+    auto header_length = xlnt::detail::read<std::uint32_t>(info_stream);
     auto index_at_start = info_stream.tellg();
-    /*auto skip_flags = */ read<std::uint32_t>(info_stream);
-    /*auto size_extra = */ read<std::uint32_t>(info_stream);
-    auto alg_id = read<std::uint32_t>(info_stream);
+    /*auto skip_flags = */ xlnt::detail::read<std::uint32_t>(info_stream);
+    /*auto size_extra = */ xlnt::detail::read<std::uint32_t>(info_stream);
+    auto alg_id = xlnt::detail::read<std::uint32_t>(info_stream);
 
     if (alg_id == 0 || alg_id == 0x0000660E || alg_id == 0x0000660F || alg_id == 0x00006610)
     {
@@ -132,23 +128,23 @@ encryption_info::standard_encryption_info read_standard_encryption_info(std::ist
         throw xlnt::exception("invalid cipher algorithm");
     }
 
-    auto alg_id_hash = read<std::uint32_t>(info_stream);
+    auto alg_id_hash = xlnt::detail::read<std::uint32_t>(info_stream);
     if (alg_id_hash != 0x00008004 && alg_id_hash == 0)
     {
         throw xlnt::exception("invalid hash algorithm");
     }
 
-    result.key_bits = read<std::uint32_t>(info_stream);
+    result.key_bits = xlnt::detail::read<std::uint32_t>(info_stream);
     result.key_bytes = result.key_bits / 8;
 
-    auto provider_type = read<std::uint32_t>(info_stream);
+    auto provider_type = xlnt::detail::read<std::uint32_t>(info_stream);
     if (provider_type != 0 && provider_type != 0x00000018)
     {
         throw xlnt::exception("invalid provider type");
     }
 
-    read<std::uint32_t>(info_stream); // reserved 1
-    if (read<std::uint32_t>(info_stream) != 0) // reserved 2
+    xlnt::detail::read<std::uint32_t>(info_stream); // reserved 1
+    if (xlnt::detail::read<std::uint32_t>(info_stream) != 0) // reserved 2
     {
         throw xlnt::exception("invalid header");
     }
@@ -163,20 +159,20 @@ encryption_info::standard_encryption_info read_standard_encryption_info(std::ist
         throw xlnt::exception("invalid cryptographic provider");
     }
 
-    const auto salt_size = read<std::uint32_t>(info_stream);
-    result.salt = xlnt::detail::read_vector<byte>(info_stream, salt_size);
+    const auto salt_size = xlnt::detail::read<std::uint32_t>(info_stream);
+    result.salt = xlnt::detail::read_vector<xlnt::detail::xbyte>(info_stream, salt_size);
 
     static const auto verifier_size = std::size_t(16);
-    result.encrypted_verifier = xlnt::detail::read_vector<byte>(info_stream, verifier_size);
+    result.encrypted_verifier = xlnt::detail::read_vector<xlnt::detail::xbyte>(info_stream, verifier_size);
 
-    /*const auto verifier_hash_size = */read<std::uint32_t>(info_stream);
+    /*const auto verifier_hash_size = */ xlnt::detail::read<std::uint32_t>(info_stream);
     const auto encrypted_verifier_hash_size = std::size_t(32);
-    result.encrypted_verifier_hash = xlnt::detail::read_vector<byte>(info_stream, encrypted_verifier_hash_size);
+    result.encrypted_verifier_hash = xlnt::detail::read_vector<xlnt::detail::xbyte>(info_stream, encrypted_verifier_hash_size);
 
     return result;
 }
 
-encryption_info::agile_encryption_info read_agile_encryption_info(std::istream &info_stream)
+xlnt::detail::encryption_info::agile_encryption_info read_agile_encryption_info(std::istream &info_stream)
 {
     using xlnt::detail::decode_base64;
 
@@ -184,7 +180,7 @@ encryption_info::agile_encryption_info read_agile_encryption_info(std::istream &
     static const auto &xmlns_p = xlnt::constants::ns("encryption-password");
     // static const auto &xmlns_c = xlnt::constants::namespace_("encryption-certificate");
 
-    encryption_info::agile_encryption_info result;
+    xlnt::detail::encryption_info::agile_encryption_info result;
 
     xml::parser parser(info_stream, "EncryptionInfo");
 
@@ -255,15 +251,15 @@ encryption_info::agile_encryption_info read_agile_encryption_info(std::istream &
     return result;
 }
 
-encryption_info read_encryption_info(std::istream &info_stream, const std::u16string &password)
+xlnt::detail::encryption_info read_encryption_info(std::istream &info_stream, const std::u16string &password)
 {
-    encryption_info info;
+    xlnt::detail::encryption_info info;
     
     info.password = password;
 
-    auto version_major = read<std::uint16_t>(info_stream);
-    auto version_minor = read<std::uint16_t>(info_stream);
-    auto encryption_flags = read<std::uint32_t>(info_stream);
+    auto version_major = xlnt::detail::read<std::uint16_t>(info_stream);
+    auto version_minor = xlnt::detail::read<std::uint16_t>(info_stream);
+    auto encryption_flags = xlnt::detail::read<std::uint32_t>(info_stream);
     
     info.is_agile = version_major == 4 && version_minor == 4;
 

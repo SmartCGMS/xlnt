@@ -64,7 +64,7 @@ invalid_sheet_title::~invalid_sheet_title()
 }
 
 invalid_column_index::invalid_column_index()
-    : exception("column string index error")
+    : exception("column std::string index error")
 {
 }
 

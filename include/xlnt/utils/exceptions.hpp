@@ -235,7 +235,7 @@ public:
     invalid_cell_reference(column_t column, row_t row);
 
     /// <summary>
-    /// Constructs an invalid_cell_reference exception for the given string.
+    /// Constructs an invalid_cell_reference exception for the given std::string.
     /// </summary>
     invalid_cell_reference(const std::string &reference_string);
 

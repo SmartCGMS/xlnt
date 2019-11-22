@@ -73,7 +73,7 @@ public:
         //cy,
         //error,
         //stream,
-        //ostream,
+        //std::ostream,
         //storage,
         //ostorage,
         //vstream,
@@ -86,12 +86,12 @@ public:
     variant();
 
     /// <summary>
-    /// Creates a string-type variant with the given value.
+    /// Creates a std::string-type variant with the given value.
     /// </summary>
     variant(const std::string &value);
 
     /// <summary>
-    /// Creates a string-type variant with the given value.
+    /// Creates a std::string-type variant with the given value.
     /// </summary>
     variant(const char *value);
 

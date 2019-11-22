@@ -7,8 +7,6 @@
 
 #include <xml/serializer>
 
-using namespace std;
-
 namespace xml
 {
   // serialization
@@ -34,18 +32,18 @@ namespace xml
     // It would have been easier to throw the exception directly,
     // however, the Genx code is most likely not exception safe.
     //
-    ostream* os (static_cast<ostream*> (p));
+    std::ostream *os(static_cast<std::ostream *>(p));
     const char* s (reinterpret_cast<const char*> (us));
-    os->write (s, static_cast<streamsize> (strlen (s)));
+    os->write(s, static_cast<std::streamsize>(strlen(s)));
     return os->good () ? GENX_SUCCESS : GENX_IO_ERROR;
   }
 
   extern "C" genxStatus
   genx_write_bound (void* p, constUtf8 start, constUtf8 end)
   {
-    ostream* os (static_cast<ostream*> (p));
+    std::ostream *os(static_cast<std::ostream *>(p));
     const char* s (reinterpret_cast<const char*> (start));
-    streamsize n (static_cast<streamsize> (end - start));
+    std::streamsize n(static_cast<std::streamsize>(end - start));
     os->write (s, n);
     return os->good () ? GENX_SUCCESS : GENX_IO_ERROR;
   }
@@ -53,7 +51,7 @@ namespace xml
   extern "C" genxStatus
   genx_flush (void* p)
   {
-    ostream* os (static_cast<ostream*> (p));
+    std::ostream* os (static_cast<std::ostream*> (p));
     os->flush ();
     return os->good () ? GENX_SUCCESS : GENX_IO_ERROR;
   }
@@ -66,12 +64,12 @@ namespace xml
   }
 
   serializer::
-  serializer (ostream& os, const string& oname, unsigned short ind)
+  serializer (std::ostream& os, const std::string& oname, unsigned short ind)
       : os_ (os), os_state_ (os.exceptions ()), oname_ (oname), depth_ (0)
   {
     // Temporarily disable exceptions on the stream.
     //
-    os_.exceptions (ostream::goodbit);
+    os_.exceptions (std::ostream::goodbit);
 
     // Allocate the serializer. Make sure nothing else can throw after
     // this call since otherwise we will leak it.
@@ -79,7 +77,7 @@ namespace xml
     s_ = genxNew (0, 0, 0);
 
     if (s_ == 0)
-      throw bad_alloc ();
+      throw std::bad_alloc ();
 
     genxSetUserData (s_, &os_);
 
@@ -92,7 +90,7 @@ namespace xml
 
     if (genxStatus e = genxStartDocSender (s_, &sender_))
     {
-      string m (genxGetErrorMessage (s_, e));
+      std::string m (genxGetErrorMessage (s_, e));
       genxDispose (s_);
       throw serialization (oname, m);
     }
@@ -104,7 +102,7 @@ namespace xml
     switch (e)
     {
     case GENX_ALLOC_FAILED:
-      throw bad_alloc ();
+      throw std::bad_alloc();
     case GENX_IO_ERROR:
       // Restoring the original exception state should trigger the
       // exception. If it doesn't (e.g., because the user didn't
@@ -119,7 +117,7 @@ namespace xml
   }
 
   void serializer::
-  start_element (const string& ns, const string& name)
+  start_element (const std::string& ns, const std::string& name)
   {
     if (genxStatus e = genxStartElementLiteral (
           s_,
@@ -150,7 +148,7 @@ namespace xml
   }
 
   void serializer::
-  end_element (const string& ns, const string& name)
+  end_element (const std::string& ns, const std::string& name)
   {
     constUtf8 cns, cn;
     genxStatus e;
@@ -165,14 +163,14 @@ namespace xml
   }
 
   void serializer::
-  element (const string& ns, const string& n, const string& v)
+  element (const std::string& ns, const std::string& n, const std::string& v)
   {
     start_element (ns, n);
     element (v);
   }
 
   void serializer::
-  start_attribute (const string& ns, const string& name)
+  start_attribute (const std::string& ns, const std::string& name)
   {
     if (genxStatus e = genxStartAttributeLiteral (
           s_,
@@ -189,7 +187,7 @@ namespace xml
   }
 
   void serializer::
-  end_attribute (const string& ns, const string& name)
+  end_attribute (const std::string& ns, const std::string& name)
   {
     constUtf8 cns, cn;
     genxStatus e;
@@ -204,9 +202,9 @@ namespace xml
   }
 
   void serializer::
-  attribute (const string& ns,
-             const string& name,
-             const string& value)
+  attribute (const std::string& ns,
+             const std::string& name,
+             const std::string& value)
   {
     if (genxStatus e = genxAddAttributeLiteral (
           s_,
@@ -217,7 +215,7 @@ namespace xml
   }
 
   void serializer::
-  characters (const string& value)
+  characters (const std::string& value)
   {
     if (genxStatus e = genxAddCountedText (
           s_,
@@ -226,7 +224,7 @@ namespace xml
   }
 
   void serializer::
-  namespace_decl (const string& ns, const string& p)
+  namespace_decl (const std::string& ns, const std::string& p)
   {
     if (genxStatus e = ns.empty () && p.empty ()
         ? genxUnsetDefaultNamespace (s_)
@@ -238,7 +236,7 @@ namespace xml
   }
 
   void serializer::
-  xml_decl (const string& ver, const string& enc, const string& stl)
+  xml_decl (const std::string& ver, const std::string& enc, const std::string& stl)
   {
     if (genxStatus e = genxXmlDeclaration (
           s_,
@@ -249,10 +247,10 @@ namespace xml
   }
 
   void serializer::
-  doctype_decl (const string& re,
-                const string& pi,
-                const string& si,
-                const string& is)
+  doctype_decl (const std::string& re,
+                const std::string& pi,
+                const std::string& si,
+                const std::string& is)
   {
     if (genxStatus e = genxDoctypeDeclaration (
           s_,
@@ -264,7 +262,7 @@ namespace xml
   }
 
   bool serializer::
-  lookup_namespace_prefix (const string& ns, string& p) const
+  lookup_namespace_prefix (const std::string& ns, std::string& p) const
   {
     // Currently Genx will create a namespace mapping if one doesn't
     // already exist.

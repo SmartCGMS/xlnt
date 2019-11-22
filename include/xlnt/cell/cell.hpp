@@ -88,7 +88,7 @@ public:
     using type = cell_type;
 
     /// <summary>
-    /// Returns a map of error strings such as \#DIV/0! and their associated indices.
+    /// Returns a map of error std::strings such as \#DIV/0! and their associated indices.
     /// </summary>
     static const std::unordered_map<std::string, int> &error_codes();
 
@@ -458,13 +458,13 @@ public:
     // formula
 
     /// <summary>
-    /// Returns the string representation of the formula applied to this cell.
+    /// Returns the std::string representation of the formula applied to this cell.
     /// </summary>
     std::string formula() const;
 
     /// <summary>
     /// Sets the formula of this cell to the given value.
-    /// This formula string should begin with '='.
+    /// This formula std::string should begin with '='.
     /// </summary>
     void formula(const std::string &formula);
 
@@ -481,7 +481,7 @@ public:
     // printing
 
     /// <summary>
-    /// Returns a string representing the value of this cell. If the data type is not a string,
+    /// Returns a std::string representing the value of this cell. If the data type is not a std::string,
     /// it will be converted according to the number format.
     /// </summary>
     std::string to_string() const;
@@ -502,7 +502,7 @@ public:
     void merged(bool merged);
 
     /// <summary>
-    /// Returns the error string that is stored in this cell.
+    /// Returns the error std::string that is stored in this cell.
     /// </summary>
     std::string error() const;
 
@@ -652,7 +652,7 @@ XLNT_API bool operator==(std::nullptr_t, const cell &cell);
 XLNT_API bool operator==(const cell &cell, std::nullptr_t);
 
 /// <summary>
-/// Convenience function for writing cell to an ostream.
+/// Convenience function for writing cell to an std::ostream.
 /// Uses cell::to_string() internally.
 /// </summary>
 XLNT_API std::ostream &operator<<(std::ostream &stream, const xlnt::cell &cell);

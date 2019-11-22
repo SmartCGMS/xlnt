@@ -205,13 +205,13 @@ public:
     const class cell cell(column_t column, row_t row) const;
 
     /// <summary>
-    /// Returns the range defined by reference string. If reference string is the name of
+    /// Returns the range defined by reference std::string. If reference std::string is the name of
     /// a previously-defined named range in the sheet, it will be returned.
     /// </summary>
     class range range(const std::string &reference_string);
 
     /// <summary>
-    /// Returns the range defined by reference string. If reference string is the name of
+    /// Returns the range defined by reference std::string. If reference std::string is the name of
     /// a previously-defined named range in the sheet, it will be returned.
     /// </summary>
     const class range range(const std::string &reference_string) const;
@@ -334,7 +334,7 @@ public:
     // named range
 
     /// <summary>
-    /// Creates a new named range with the given name encompassing the string representing a range.
+    /// Creates a new named range with the given name encompassing the std::string representing a range.
     /// </summary>
     void create_named_range(const std::string &name, const std::string &reference_string);
 
@@ -420,7 +420,7 @@ public:
     // cell merge
 
     /// <summary>
-    /// Merges the cells within the range represented by the given string.
+    /// Merges the cells within the range represented by the given std::string.
     /// </summary>
     void merge_cells(const std::string &reference_string);
 
@@ -430,7 +430,7 @@ public:
     void merge_cells(const range_reference &reference);
 
     /// <summary>
-    /// Removes the merging of the cells in the range represented by the given string.
+    /// Removes the merging of the cells in the range represented by the given std::string.
     /// </summary>
     void unmerge_cells(const std::string &reference_string);
 
@@ -648,7 +648,7 @@ public:
     void print_title_cols(column_t last_column);
 
     /// <summary>
-    /// Returns a string representation of the defined print titles.
+    /// Returns a std::string representation of the defined print titles.
     /// </summary>
     std::string print_titles() const;
 

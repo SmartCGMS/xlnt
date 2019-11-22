@@ -48,12 +48,12 @@ public:
     path();
 
     /// <summary>
-    /// Counstruct a path from a string representing the path.
+    /// Counstruct a path from a std::string representing the path.
     /// </summary>
     explicit path(const std::string &path_string);
 
     /// <summary>
-    /// Construct a path from a string with an explicit directory seprator.
+    /// Construct a path from a std::string with an explicit directory seprator.
     /// </summary>
     path(const std::string &path_string, char sep);
 
@@ -91,27 +91,27 @@ public:
     std::string extension() const;
 
     /// <summary>
-    /// Return a pair of strings resulting from splitting the filename on the last dot.
+    /// Return a pair of std::strings resulting from splitting the filename on the last dot.
     /// </summary>
     std::pair<std::string, std::string> split_extension() const;
 
     // conversion
 
     /// <summary>
-    /// Create a string representing this path separated by the provided
+    /// Create a std::string representing this path separated by the provided
     /// separator or the system-default separator if not provided.
     /// </summary>
     std::vector<std::string> split() const;
 
     /// <summary>
-    /// Create a string representing this path separated by the provided
+    /// Create a std::string representing this path separated by the provided
     /// separator or the system-default separator if not provided.
     /// </summary>
     const std::string& string() const;
 
 #ifdef _MSC_VER
     /// <summary>
-    /// Create a wstring representing this path separated by the provided
+    /// Create a wstd::string representing this path separated by the provided
     /// separator or the system-default separator if not provided.
     /// </summary>
     std::wstring wstring() const;
@@ -154,7 +154,7 @@ public:
     // filesystem
 
     /// <summary>
-    /// Open the file pointed to by this path and return a string containing
+    /// Open the file pointed to by this path and return a std::string containing
     /// the files contents.
     /// </summary>
     std::string read_contents() const;
@@ -193,7 +193,7 @@ private:
     char guess_separator() const;
 
     /// <summary>
-    /// A string that represents this path.
+    /// A std::string that represents this path.
     /// </summary>
     std::string internal_;
 };
@@ -213,7 +213,7 @@ struct hash<xlnt::path>
     /// </summary>
     size_t operator()(const xlnt::path &p) const
     {
-        static hash<string> hasher;
+        static hash<std::string> hasher;
         return hasher(p.string());
     }
 };

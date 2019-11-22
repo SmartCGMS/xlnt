@@ -124,22 +124,22 @@ public:
 
     // serialisation
     /// <summary>
-    /// string form of the type enum
+    /// std::string form of the type enum
     /// </summary>
     static const std::string &type_as_string(phonetic_type type);
 
     /// <summary>
-    /// type enum from string
+    /// type enum from std::string
     /// </summary>
     static phonetic_type type_from_string(const std::string &str);
 
     /// <summary>
-    /// string form of alignment enum
+    /// std::string form of alignment enum
     /// </summary>
     static const std::string &alignment_as_string(xlnt::phonetic_pr::align type);
 
     /// <summary>
-    /// alignment enum from string
+    /// alignment enum from std::string
     /// </summary>
     static align alignment_from_string(const std::string &str);
 

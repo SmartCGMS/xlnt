@@ -37,8 +37,6 @@
 
 namespace {
 
-using namespace xlnt::detail;
-
 int compare_keys(const std::string &left, const std::string &right)
 {
     auto to_lower = [](std::string s)
@@ -83,12 +81,12 @@ std::string join_path(const std::vector<std::string> &path)
     return joined;
 }
 
-const sector_id FreeSector = -1;
-const sector_id EndOfChain = -2;
-const sector_id SATSector = -3;
+const xlnt::detail::sector_id FreeSector = -1;
+const xlnt::detail::sector_id EndOfChain = -2;
+const xlnt::detail::sector_id SATSector = -3;
 //const sector_id MSATSector = -4;
 
-const directory_id End = -1;
+const xlnt::detail::directory_id End = -1;
 
 } // namespace
 
@@ -296,8 +294,8 @@ private:
 private:
     const compound_document_entry &entry_;
     compound_document &document_;
-    binary_writer<byte> sector_writer_;
-    std::vector<byte> current_sector_;
+    binary_writer<xbyte> sector_writer_;
+    std::vector<xbyte> current_sector_;
     std::size_t position_;
 };
 
@@ -373,7 +371,7 @@ private:
         entry_.size = std::max(entry_.size, static_cast<std::uint32_t>(position_));
         document_.write_directory();
 
-        std::fill(current_sector_.begin(), current_sector_.end(), byte(0));
+        std::fill(current_sector_.begin(), current_sector_.end(), xbyte(0));
         setp(reinterpret_cast<char *>(current_sector_.data()),
             reinterpret_cast<char *>(current_sector_.data() + current_sector_.size()));
 
@@ -430,7 +428,7 @@ private:
         }
 
         current_sector_.resize(document_.sector_size(), 0);
-        std::fill(current_sector_.begin(), current_sector_.end(), byte(0));
+        std::fill(current_sector_.begin(), current_sector_.end(), xbyte(0));
 
         if (entry_.start < 0)
         {
@@ -506,8 +504,8 @@ private:
 private:
     compound_document_entry &entry_;
     compound_document &document_;
-    binary_reader<byte> sector_reader_;
-    std::vector<byte> current_sector_;
+    binary_reader<xbyte> sector_reader_;
+    std::vector<xbyte> current_sector_;
     std::size_t position_;
     sector_chain chain_;
 };
@@ -611,7 +609,7 @@ template<typename T>
 void compound_document::read_sector(sector_id id, binary_writer<T> &writer)
 {
     in_->seekg(static_cast<std::ptrdiff_t>(sector_data_start() + sector_size() * static_cast<std::size_t>(id)));
-    std::vector<byte> sector(sector_size(), 0);
+    std::vector<xbyte> sector(sector_size(), 0);
     in_->read(reinterpret_cast<char *>(sector.data()), static_cast<std::ptrdiff_t>(sector_size()));
     writer.append(sector);
 }
@@ -640,15 +638,15 @@ template<typename T>
 void compound_document::read_short_sector(sector_id id, binary_writer<T> &writer)
 {
     const auto container_chain = follow_chain(entries_[0].start, sat_);
-    auto container = std::vector<byte>();
-    auto container_writer = binary_writer<byte>(container);
+    auto container = std::vector<xbyte>();
+    auto container_writer = binary_writer<xbyte>(container);
 
     for (auto sector : container_chain)
     {
         read_sector(sector, container_writer);
     }
 
-    auto container_reader = binary_reader<byte>(container);
+    auto container_reader = binary_reader<xbyte>(container);
     container_reader.offset(static_cast<std::size_t>(id) * short_sector_size());
 
     writer.append(container_reader, short_sector_size());
@@ -706,8 +704,8 @@ sector_id compound_document::allocate_sector()
 
     write_sat();
 
-    auto empty_sector = std::vector<byte>(sector_size());
-    auto empty_sector_reader = binary_reader<byte>(empty_sector);
+    auto empty_sector = std::vector<xbyte>(sector_size());
+    auto empty_sector_reader = binary_reader<xbyte>(empty_sector);
     write_sector(empty_sector_reader, next_free);
 
     return next_free;

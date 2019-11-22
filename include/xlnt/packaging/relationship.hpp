@@ -113,7 +113,7 @@ public:
         const uri &target, xlnt::target_mode mode);
 
     /// <summary>
-    /// Returns a string of the form rId# that identifies the relationship.
+    /// Returns a std::string of the form rId# that identifies the relationship.
     /// </summary>
     const std::string& id() const;
 

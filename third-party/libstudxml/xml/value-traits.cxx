@@ -4,12 +4,10 @@
 
 #include <xml/parser>
 
-using namespace std;
-
 namespace xml
 {
   bool default_value_traits<bool>::
-  parse (string s, const parser& p)
+  parse (std::string s, const parser& p)
   {
     if (s == "true" || s == "1" || s == "True" || s == "TRUE")
       return true;

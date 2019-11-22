@@ -92,7 +92,7 @@ typedef struct {
   const XML_Memory_Handling_Suite *mem;
 } HASH_TABLE;
 
-/* Basic character hash algorithm, taken from Python's string hash:
+/* Basic character hash algorithm, taken from Python's std::string hash:
    h = h * 1000003 ^ character, the constant being a prime number.
 
 */
@@ -1968,8 +1968,8 @@ XML_ErrorString(enum XML_Error code)
 const XML_LChar * XMLCALL
 XML_ExpatVersion(void) {
 
-  /* V1 is used to string-ize the version number. However, it would
-     string-ize the actual version macro *names* unless we get them
+  /* V1 is used to std::string-ize the version number. However, it would
+     std::string-ize the actual version macro *names* unless we get them
      substituted before being passed to V1. CPP is defined to expand
      a macro, then rescan for more expansions. Thus, we use V2 to expand
      the version macros, then CPP will expand the resulting V1() macro

@@ -440,12 +440,12 @@ public:
         // ctor from ifstream
         std::ifstream file_reader(file.string(), std::ios::binary);
         xlnt_assert_equals(wb_path, xlnt::workbook(file_reader));
-        // load with string
+        // load with std::string
         xlnt::workbook wb_load1;
         xlnt_assert_differs(wb_path, wb_load1);
         wb_load1.load(file.string());
         xlnt_assert_equals(wb_path, wb_load1);
-        // load with wstring
+        // load with wstd::string
         xlnt::workbook wb_load2;
         wb_load2.load(file.string());
         xlnt_assert_equals(wb_path, wb_load2);

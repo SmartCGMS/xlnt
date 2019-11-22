@@ -40,7 +40,7 @@ namespace xlnt {
 using row_t = std::uint32_t;
 
 /// <summary>
-/// Columns can be referred to as a string A,B,...Z,AA,AB,..,ZZ,AAA,...,ZZZ
+/// Columns can be referred to as a std::string A,B,...Z,AA,AB,..,ZZ,AAA,...,ZZZ
 /// or as a 1-indexed index. This class encapsulates both of these forms of
 /// column referencing and allows for conversions between them.
 /// </summary>
@@ -58,7 +58,7 @@ public:
     /// <remarks>
     /// Excel only supports 1 - 3 letter column names from A->ZZZ, so we
     /// restrict our column names to 1 - 3 characters, each in the range A - Z.
-    /// Strings outside this range and malformed strings will throw column_string_index_exception.
+    /// std::strings outside this range and malformed std::strings will throw column_string_index_exception.
     /// </remarks>
     static index_t column_index_from_string(const std::string &column_string);
 
@@ -83,12 +83,12 @@ public:
     column_t(index_t column_index);
 
     /// <summary>
-    /// Constructs a column from a string.
+    /// Constructs a column from a std::string.
     /// </summary>
     column_t(const std::string &column_string);
 
     /// <summary>
-    /// Constructs a column from a string.
+    /// Constructs a column from a std::string.
     /// </summary>
     column_t(const char *column_string);
 
@@ -103,7 +103,7 @@ public:
     column_t(column_t &&other);
 
     /// <summary>
-    /// Returns a string representation of this column index.
+    /// Returns a std::string representation of this column index.
     /// </summary>
     std::string column_string() const;
 

@@ -28,7 +28,7 @@
 
 namespace xlnt {
 /// <summary>
-/// Takes in any nuber and outputs a string form of that number which will
+/// Takes in any nuber and outputs a std::string form of that number which will
 /// serialise and deserialise without loss of precision
 /// </summary>
 template <typename Number>

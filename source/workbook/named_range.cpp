@@ -29,7 +29,7 @@
 namespace {
 
 /// <summary>
-/// Return a vector containing string split at each delim.
+/// Return a vector containing std::string split at each delim.
 /// </summary>
 /// <remark>
 /// This should maybe be in a utility header so it can be used elsewhere.
@@ -39,18 +39,18 @@ std::vector<std::string> split_string(const std::string &string, char delim)
 {
     std::vector<std::string> split;
     std::string::size_type previous_index = 0;
-    auto separator_index = string.find(delim);
+    auto separator_index = std::string.find(delim);
 
     while (separator_index != std::string::npos)
     {
-        auto part = string.substr(previous_index, separator_index - previous_index);
+        auto part = std::string.substr(previous_index, separator_index - previous_index);
         split.push_back(part);
 
         previous_index = separator_index + 1;
-        separator_index = string.find(delim, previous_index);
+        separator_index = std::string.find(delim, previous_index);
     }
 
-    split.push_back(string.substr(previous_index));
+    split.push_back(std::string.substr(previous_index));
 
     return split;
 }
@@ -70,7 +70,7 @@ std::vector<std::pair<std::string, std::string>> split_named_range(const std::st
             split[0] = split[0].substr(1, split[0].length() - 2);
         }
 
-        // Try to parse it. Use empty string if it's not a valid range.
+        // Try to parse it. Use empty std::string if it's not a valid range.
         try
         {
             xlnt::range_reference ref(split[1]);

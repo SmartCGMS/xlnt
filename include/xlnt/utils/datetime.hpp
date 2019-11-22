@@ -57,7 +57,7 @@ struct XLNT_API datetime
     static datetime from_number(double number, calendar base_date);
 
     /// <summary>
-    /// Returns a datetime equivalent to the ISO-formatted string iso_string.
+    /// Returns a datetime equivalent to the ISO-formatted std::string iso_string.
     /// </summary>
     static datetime from_iso_string(const std::string &iso_string);
 
@@ -72,12 +72,12 @@ struct XLNT_API datetime
     datetime(int year_, int month_, int day_, int hour_ = 0, int minute_ = 0, int second_ = 0, int microsecond_ = 0);
 
     /// <summary>
-    /// Returns a string represenation of this date and time.
+    /// Returns a std::string represenation of this date and time.
     /// </summary>
     std::string to_string() const;
 
     /// <summary>
-    /// Returns an ISO-formatted string representation of this date and time.
+    /// Returns an ISO-formatted std::string representation of this date and time.
     /// </summary>
     std::string to_iso_string() const;
 

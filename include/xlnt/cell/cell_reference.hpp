@@ -50,20 +50,20 @@ struct XLNT_API cell_reference_hash
 /// <summary>
 /// An object used to refer to a cell.
 /// References have two parts, the column and the row.
-/// In Excel, the reference string A1 refers to the top-left-most cell. A cell_reference
-/// can be initialized from a string of this form or a 1-indexed ordered pair of the form
+/// In Excel, the reference std::string A1 refers to the top-left-most cell. A cell_reference
+/// can be initialized from a std::string of this form or a 1-indexed ordered pair of the form
 /// column, row.
 /// </summary>
 class XLNT_API cell_reference
 {
 public:
     /// <summary>
-    /// Splits a coordinate string like "A1" into an equivalent pair like {"A", 1}.
+    /// Splits a coordinate std::string like "A1" into an equivalent pair like {"A", 1}.
     /// </summary>
     static std::pair<std::string, row_t> split_reference(const std::string &reference_string);
 
     /// <summary>
-    /// Splits a coordinate string like "A1" into an equivalent pair like {"A", 1}.
+    /// Splits a coordinate std::string like "A1" into an equivalent pair like {"A", 1}.
     /// Reference parameters absolute_column and absolute_row will be set to true
     /// if column part or row part are prefixed by a dollar-sign indicating they
     /// are absolute, otherwise false.
@@ -81,12 +81,12 @@ public:
     // TODO: should these be explicit? The implicit conversion is nice sometimes.
 
     /// <summary>
-    /// Constructs a cell_reference from a string reprenting a cell coordinate (e.g. $B14).
+    /// Constructs a cell_reference from a std::string reprenting a cell coordinate (e.g. $B14).
     /// </summary>
     cell_reference(const char *reference_string);
 
     /// <summary>
-    /// Constructs a cell_reference from a string reprenting a cell coordinate (e.g. $B14).
+    /// Constructs a cell_reference from a std::string reprenting a cell coordinate (e.g. $B14).
     /// </summary>
     cell_reference(const std::string &reference_string);
 
@@ -98,7 +98,7 @@ public:
     // absoluteness
 
     /// <summary>
-    /// Converts a coordinate to an absolute coordinate string (e.g. B12 -> $B$12)
+    /// Converts a coordinate to an absolute coordinate std::string (e.g. B12 -> $B$12)
     /// Defaulting to true, absolute_column and absolute_row can optionally control
     /// whether the resulting cell_reference has an absolute column (e.g. B12 -> $B12)
     /// and absolute row (e.g. B12 -> B$12) respectively.
@@ -137,13 +137,13 @@ public:
     // getters/setters
 
     /// <summary>
-    /// Returns a string that identifies the column of this reference
+    /// Returns a std::string that identifies the column of this reference
     /// (e.g. second column from left is "B")
     /// </summary>
     column_t column() const;
 
     /// <summary>
-    /// Sets the column of this reference from a string that identifies a particular column.
+    /// Sets the column of this reference from a std::string that identifies a particular column.
     /// </summary>
     void column(const std::string &column_string);
 
@@ -176,7 +176,7 @@ public:
     cell_reference make_offset(int column_offset, int row_offset) const;
 
     /// <summary>
-    /// Returns a string like "A1" for cell_reference(1, 1).
+    /// Returns a std::string like "A1" for cell_reference(1, 1).
     /// </summary>
     std::string to_string() const;
 

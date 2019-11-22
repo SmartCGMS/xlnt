@@ -118,7 +118,7 @@ std::pair<std::string, row_t> cell_reference::split_reference(
     absolute_column = false;
     absolute_row = false;
 
-    // Convert a coordinate string like 'B12' to a tuple ('B', 12)
+    // Convert a coordinate std::string like 'B12' to a tuple ('B', 12)
     bool column_part = true;
 
     std::string column_string;

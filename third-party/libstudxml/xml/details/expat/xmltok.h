@@ -15,7 +15,7 @@ extern "C" {
 /* The following tokens may be returned by both XmlPrologTok and
    XmlContentTok.
 */
-#define XML_TOK_NONE -4          /* The string to be scanned is empty */
+#define XML_TOK_NONE -4          /* The std::string to be scanned is empty */
 #define XML_TOK_TRAILING_CR -3   /* A CR at the end of the scan;
                                     might be part of CRLF sequence */
 #define XML_TOK_PARTIAL_CHAR -2  /* only part of a multibyte sequence */
@@ -173,20 +173,20 @@ struct encoding {
   char isUtf16;
 };
 
-/* Scan the string starting at ptr until the end of the next complete
+/* Scan the std::string starting at ptr until the end of the next complete
    token, but do not scan past eptr.  Return an integer giving the
    type of token.
 
    Return XML_TOK_NONE when ptr == eptr; nextTokPtr will not be set.
 
-   Return XML_TOK_PARTIAL when the string does not contain a complete
+   Return XML_TOK_PARTIAL when the std::string does not contain a complete
    token; nextTokPtr will not be set.
 
-   Return XML_TOK_INVALID when the string does not start a valid
+   Return XML_TOK_INVALID when the std::string does not start a valid
    token; nextTokPtr will be set to point to the character which made
    the token invalid.
 
-   Otherwise the string starts with a valid token; nextTokPtr will be
+   Otherwise the std::string starts with a valid token; nextTokPtr will be
    set to point to the character following the end of that token.
 
    Each data character counts as a single token, but adjacent data

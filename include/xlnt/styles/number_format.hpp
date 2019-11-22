@@ -192,13 +192,13 @@ public:
     number_format(std::size_t builtin_id);
 
     /// <summary>
-    /// Constructs a number format from a code string. If the string matches a builtin ID,
+    /// Constructs a number format from a code std::string. If the std::string matches a builtin ID,
     /// its ID will also be set to match the builtin ID.
     /// </summary>
     number_format(const std::string &code);
 
     /// <summary>
-    /// Constructs a number format from a code string and custom ID. Custom ID should generally
+    /// Constructs a number format from a code std::string and custom ID. Custom ID should generally
     /// be >= 164.
     /// </summary>
     number_format(const std::string &code, std::size_t custom_id);

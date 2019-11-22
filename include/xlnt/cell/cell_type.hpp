@@ -45,13 +45,13 @@ enum class XLNT_API cell_type
     date,
     /// value is a known error code such as \#VALUE!
     error,
-    /// value is a string stored in the cell
+    /// value is a std::string stored in the cell
     inline_string,
     /// value is a number
     number,
-    /// value is a string shared with other cells to save space
+    /// value is a std::string shared with other cells to save space
     shared_string,
-    /// value is the string result of a formula
+    /// value is the std::string result of a formula
     formula_string
 };
 

@@ -254,14 +254,14 @@ private:
         xlnt::workbook wb;
         auto ws = wb.active_sheet();
         auto cell = ws.cell(xlnt::cell_reference(1, 1));
-        // error string can't be empty
+        // error std::string can't be empty
         xlnt_assert_throws(cell.error(""), xlnt::exception);
-        // error string has to have a leading '#'
+        // error std::string has to have a leading '#'
         xlnt_assert_throws(cell.error("not an error"), xlnt::exception);
 
         for (auto error_code : xlnt::cell::error_codes())
         {
-            // error type from the string format
+            // error type from the std::string format
             cell.value(error_code.first, true);
             xlnt_assert(cell.data_type() == xlnt::cell::type::error);
             std::string error;

@@ -44,12 +44,12 @@ namespace xlnt {
 namespace detail {
 
 /// <summary>
-/// Returns the string representation of the underline style.
+/// Returns the std::string representation of the underline style.
 /// </summary>
 std::string to_string(font::underline_style underline_style);
 
 /// <summary>
-/// Returns the string representation of the relationship type.
+/// Returns the std::string representation of the relationship type.
 /// </summary>
 std::string to_string(relationship_type t);
 
@@ -110,7 +110,7 @@ relationship_type from_string(const std::string &string)
         return relationship_type::core_properties;
     else if (string == "http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet")
         return relationship_type::worksheet;
-    else if (string == "http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedStrings")
+    else if (string == "http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedstd::strings")
         return relationship_type::shared_string_table;
     else if (string == "http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles")
         return relationship_type::stylesheet;
@@ -221,9 +221,9 @@ pattern_fill_type from_string(const std::string &string)
         }
     };
 
-    std::string lowerString {toLower (string) };
+    std::string lowerstring {toLower (string) };
 
-    return patternLookup (lowerString);
+    return patternLookup (lowerstring);
 }
 
 template<>

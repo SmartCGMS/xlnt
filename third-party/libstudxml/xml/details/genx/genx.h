@@ -61,7 +61,7 @@ typedef enum
 #  define GENX_CHAR_TABLE_SIZE 0x100
 #endif
 
-/* a UTF-8 string */
+/* a UTF-8 std::string */
 typedef unsigned char * utf8;
 typedef const unsigned char * constUtf8;
 
@@ -196,7 +196,7 @@ genxAttribute genxDeclareAttribute(genxWriter w,
 
 /*
  * Caller-provided I/O package.
- * First form is for a null-terminated string.
+ * First form is for a null-terminated std::string.
  * for second, if you have s="abcdef" and want to send "abc", you'd call
  *  sendBounded(userData, s, s + 3)
  */
@@ -363,7 +363,7 @@ int genxCharClass(genxWriter w, int c);
 
 /*
  * Silently wipe any non-XML characters out of a chunk of text.
- * If you call this on a string before you pass it addText or
+ * If you call this on a std::string before you pass it addText or
  *  addAttribute, you will never get an error from genx unless
  *  (a) there's a bug in your software, e.g. a malformed element name, or
  *  (b) there's a memory allocation or I/O error

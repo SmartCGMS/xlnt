@@ -175,7 +175,7 @@ public:
     /// <summary>
     /// If quote is true, enables a single-quote prefix for all text values in cells
 	/// using this format (e.g. "abc" will appear as "'abc"). The text will also not
-	/// be stored in sharedStrings when this is enabled.
+	/// be stored in sharedstd::strings when this is enabled.
     /// </summary>
     void quote_prefix(bool quote);
 

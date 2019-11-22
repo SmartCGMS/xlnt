@@ -69,7 +69,7 @@ struct XLNT_API zheader
 };
 
 /// <summary>
-/// Writes a series of uncompressed binary file data as ostreams into another ostream
+/// Writes a series of uncompressed binary file data as std::ostreams into another std::ostream
 /// according to the ZIP format.
 /// </summary>
 class XLNT_API ozstream

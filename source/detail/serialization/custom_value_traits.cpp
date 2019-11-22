@@ -27,7 +27,7 @@ namespace xlnt {
 namespace detail {
 
 /// <summary>
-/// Returns the string representation of the underline style.
+/// Returns the std::string representation of the underline style.
 /// </summary>
 std::string to_string(font::underline_style style)
 {
@@ -44,7 +44,7 @@ std::string to_string(font::underline_style style)
 }
 
 /// <summary>
-/// Returns the string representation of the relationship type.
+/// Returns the std::string representation of the relationship type.
 /// </summary>
 std::string to_string(relationship_type t)
 {
@@ -63,7 +63,7 @@ std::string to_string(relationship_type t)
     case relationship_type::worksheet:
         return "http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet";
     case relationship_type::shared_string_table:
-        return "http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedStrings";
+        return "http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedstd::strings";
     case relationship_type::stylesheet:
         return "http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles";
     case relationship_type::theme:

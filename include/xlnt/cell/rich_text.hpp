@@ -33,7 +33,7 @@ namespace xlnt {
 
 /// <summary>
 /// Encapsulates zero or more formatted text runs where a text run
-/// is a string of text with the same defined formatting.
+/// is a std::string of text with the same defined formatting.
 /// </summary>
 class XLNT_API rich_text
 {
@@ -70,7 +70,7 @@ public:
 
     /// <summary>
     /// Clears any runs in this text and adds a single run with default formatting and
-    /// the given string as its textual content.
+    /// the given std::string as its textual content.
     /// </summary>
     void plain_text(const std::string &s, bool preserve_space);
 

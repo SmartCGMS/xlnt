@@ -53,7 +53,7 @@ public:
         std::string salt;
 
         /// <summary>
-        /// The actual hash value represented as a string
+        /// The actual hash value represented as a std::string
         /// </summary>
         std::string hash;
 
