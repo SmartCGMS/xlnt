@@ -256,7 +256,7 @@ configure_file("${XLNT_ROOT_DIR}/cmake/cmake_uninstall.cmake.in"
   IMMEDIATE @ONLY)
 
 # Add uninstall target
-add_custom_target(uninstall
+add_custom_target(xlnt_uninstall
   COMMAND ${CMAKE_COMMAND} -P
     ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
 
