@@ -7,7 +7,7 @@
 
 #include <xml/details/pre.hxx>
 
-#include <xml/version>
+#include <xml/lib_version>
 
 namespace xml
 {
